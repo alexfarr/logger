@@ -1,0 +1,60 @@
+nginx:
+  build: ./nginx
+  ports:
+    - 8081:80
+  links:
+    - php
+  volumes_from:
+    - app
+
+php:
+  build: ./php/
+  expose:
+    - 9000
+  links:
+    - mysql 
+  volumes_from:
+    - app
+
+php_cron:
+  build: ./php_cron/
+  links:
+    - mysql
+  volumes:
+    - ./cron:/var/www/html
+    - ./cron.d:/etc/cron.d
+
+app:
+  image: php:7.0-fpm
+  volumes:
+    - ./app/public:/var/www/html
+    - ./app:/var/www
+  command: "true"
+
+mysql:
+  image: mysql:latest
+  volumes_from:
+    - data
+  environment:
+    MYSQL_ROOT_PASSWORD: hipp0
+    MYSQL_DATABASE: logger
+    MYSQL_USER: logger
+    MYSQL_PASSWORD: logger
+  volumes:
+    - ./db-init:/docker-entrypoint-initdb.d # Place init .sql file(s) here.
+
+
+data:
+  image: mysql:latest
+  volumes:
+    - /var/lib/mysql 
+  command: "true"
+
+phpmyadmin:
+  image: phpmyadmin/phpmyadmin
+  ports: 
+    - 8082:80
+  links:
+    - mysql 
+  environment:
+    PMA_HOST: mysql 
