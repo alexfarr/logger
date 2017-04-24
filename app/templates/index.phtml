@@ -30,6 +30,10 @@
 <h1>Logger</h1>
 <div>iot logger for home.alexfarr.co.uk - temp page</div>
 
+<div id="temp-chart"></div>
+<?php print $charts; ?>
+
+<?php if(isset($result)): ?>
     <table>
   <?php foreach($result as $row): ?>
 <tr>
@@ -41,6 +45,6 @@
 </tr>
 <?php endforeach;?>
     </table>
-
+<?php endif; ?>
 </body>
 </html>

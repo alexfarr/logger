@@ -6,8 +6,8 @@ $app->get('/', function ($request, $response, $args) {
     // Sample log message
     $this->logger->info("Slim-Skeleton '/' route");
 
-    $record = new iotLogger($this->db);
-    $args['result'] = $record->fetchAll();
+  $logger = new iotLogger($this->db);
+  $args = $logger->homepage();
 
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
@@ -19,8 +19,8 @@ $app->post('/', function ($request, $response, $args) {
     // Sample log message
     $this->logger->info("Slim-Skeleton '/' route data:".print_r($data, TRUE));
 
-    $record = new iotLogger($this->db);
-    $record->save($data);
+    $logger = new iotLogger($this->db);
+    $logger->save($data);
 
     // Render index view
     return $response;

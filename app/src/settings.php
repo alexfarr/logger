@@ -17,7 +17,7 @@ return [
         ],
         
         'db' => [
-            'host' => 'mysql',
+            'host' => 'localhost',
             'user' => 'root',
             'pass' => 'hipp0',
             'dbname' => 'logger',
