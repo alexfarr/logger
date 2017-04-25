@@ -25,8 +25,8 @@ class iotLogger {
     $options = new iotLoggerDataOptions();
     $startTime = new \DateTime('last monday');
     $endTime = new \DateTime('next sunday');
-      $options->setRange($startTime->getTimestamp(), $endTime->getTimestamp());
-    $this->args['charts'] = $chart->AllCharts();
+    $options->setRange($startTime->getTimestamp(), $endTime->getTimestamp());
+    $this->args['charts'] = $chart->AllCharts($options);
 
 
     $temp_stats = $record->getLatest();

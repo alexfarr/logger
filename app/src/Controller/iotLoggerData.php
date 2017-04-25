@@ -28,7 +28,7 @@ class iotLoggerData{
   }
 
   function fetchAll(iotLoggerDataOptions $options = NULL){
-    $query = 'SELECT * FROM logger';
+    $query = 'SELECT s.title, l.* FROM logger l JOIN sensors s ON l.sensor = s.id';
     $where = [];
 
     if(isset($options) && $options->getStart() && $options->getEnd()){
@@ -46,7 +46,7 @@ class iotLoggerData{
   }
 
   function fetchSensor($sensor, iotLoggerDataOptions $options = NULL){
-    $query = $this->db->prepare("SELECT * FROM logger WHERE sensor = :sensor");
+    $query = $this->db->prepare("SELECT s.title, l.* FROM logger l JOIN sensors s ON l.sensor = s.id WHERE sensor = :sensor");
     $query->execute(['sensor' => $sensor]);
     $this->data = $query->fetchAll();
     return $this->data;

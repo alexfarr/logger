@@ -53,11 +53,11 @@ $sensors_found = [];
         $date_str = $date->format('Y-m-d H:i:s');
         $data[$this->roundTime($row['time'])][$row['sensor']][] = $row['value'];
         //$dt->addRow([$date_str, $row['value']]);
-        $sensors_found[$row['sensor']] = $row['sensor'];
+        $sensors_found[$row['sensor']] = $row['title'];
       }
     }
-    foreach($sensors_found as $sensor){
-      $dt->addNumberColumn('Sensor:'.$sensor);
+    foreach($sensors_found as $sensor_id => $sensor_title){
+      $dt->addNumberColumn($sensor_title);
     }
     foreach($data as $time => $time_series){
 
