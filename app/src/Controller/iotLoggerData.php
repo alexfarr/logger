@@ -52,7 +52,18 @@ class iotLoggerData{
     return $this->data;
   }
 
-  function getSensors(iotLoggerDataOptions $options = NULL){
+  function getSensors(){
     return $this->db->query("SELECT DISTINCT sensor FROM logger")->fetchAll();
+  }
+
+  function getLatest(){
+    $sensors = $this->getSensors();
+    $results = [];
+    foreach($sensors as $sensor){
+      $sql = "SELECT * FROM logger WHERE sensor = '{$sensor['sensor']}' ORDER BY time DESC LIMIT 1 ";
+      $query = $this->db->query($sql);
+      $results[] = $query->fetchAll()[0];
+    }
+    return $results;
   }
 }

@@ -24,11 +24,48 @@
             font-weight: 200;
             margin-bottom: 0;
         }
+
+        .stat{
+            display: inline-block;
+            width: 200px;
+            background-color: #efefef;
+            padding: 20px;
+            margin: 10px;
+        }
+        .stat .title {
+            color: #aaa;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 18px;
+        }
+        .stat .value {
+            color: #719e40;
+            letter-spacing: -3px;
+            font-family: 'Lato', sans-serif;
+            font-size: 100px;
+            font-weight: 200;
+            margin-bottom: 0;
+        }
+        .stats .date{
+            font-style: italic;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
 <h1>Logger</h1>
 <div>iot logger for home.alexfarr.co.uk - temp page</div>
+
+<?php if($stats): ?>
+    <div class="stats">
+    <?php foreach($stats as $stat): ?>
+      <div class="stat">
+          <div class="title"><?php print $stat['sensor']; ?></div>
+          <div class="value"><?php print number_format((float) $stat['value'], 1); ?></div>
+          <div class="date"><?php print date('D H:m', $stat['time']); ?></div>
+      </div>
+    <?php endforeach; ?>
+    </div>
+<?php endif; ?>
 
 <div id="temp-chart"></div>
 <?php print $charts; ?>

@@ -11,12 +11,13 @@ namespace App\Controller;
 
 class iotLoggerDataOptions {
 
-  public $range_start;
-  public $range_end;
+  private $range_start = NULL;
+  public $range_end = NULL;
+  public $sensor = NULL;
 
   /**
-   * @param $start
-   * @param $end
+   * @param int $start
+   * @param int $end
    */
   public function setRange($start, $end) {
     $this->range_start  = $start;
@@ -24,16 +25,30 @@ class iotLoggerDataOptions {
   }
 
   /**
-   * @return mixed
+   * @return int
    */
   public function getStart(){
     return $this->range_start;
   }
 
   /**
-   * @return mixed
+   * @return int
    */
   public function getEnd(){
     return $this->range_end;
+  }
+
+  /**
+   * @param string $sensor
+   */
+  public function setSensor($sensor){
+    $this->sensor = $sensor;
+  }
+
+  /**
+   * @return string
+   */
+  public function getSensor(){
+    return $this->sensor;
   }
 }

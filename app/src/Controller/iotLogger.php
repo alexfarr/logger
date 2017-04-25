@@ -28,6 +28,10 @@ class iotLogger {
       $options->setRange($startTime->getTimestamp(), $endTime->getTimestamp());
     $this->args['charts'] = $chart->AllCharts($options);
 
+
+    $temp_stats = $record->getLatest();
+    $this->args['stats'] = $temp_stats;
+
     return $this->args;
   }
 

@@ -89,6 +89,12 @@ $sensors_found = [];
 
   }
 
+  /**
+   * @param int $time
+   * @param int $precision
+   *
+   * @return int mixed
+   */
   function roundTime($time, $precision = 30) {
 
     $s = ($precision * 60);
