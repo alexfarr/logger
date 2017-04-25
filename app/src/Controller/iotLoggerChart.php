@@ -39,7 +39,7 @@ class iotLoggerChart {
 
   }
 
-  public function AllCharts(iotLoggerDataOptions $options){
+  public function AllCharts(iotLoggerDataOptions $options = NULL){
     $data = [];
     $this->loggerData = new iotLoggerData($this->db);
     $this->data = $this->loggerData->fetchAll($options);

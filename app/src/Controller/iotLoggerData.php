@@ -31,7 +31,7 @@ class iotLoggerData{
     $query = 'SELECT * FROM logger';
     $where = [];
 
-    if($options->getStart() && $options->getEnd()){
+    if(isset($options) && $options->getStart() && $options->getEnd()){
       $where[] = " time > {$options->getStart()} && time < {$options->getEnd()}";
     }
 
@@ -60,7 +60,7 @@ class iotLoggerData{
     $sensors = $this->getSensors();
     $results = [];
     foreach($sensors as $sensor){
-      $sql = "SELECT * FROM logger WHERE sensor = '{$sensor['sensor']}' ORDER BY time DESC LIMIT 1 ";
+      $sql = "SELECT s.title, l.value, l.time FROM logger l JOIN sensors s ON l.sensor = s.id WHERE sensor = '{$sensor['sensor']}' ORDER BY time DESC LIMIT 1 ";
       $query = $this->db->query($sql);
       $results[] = $query->fetchAll()[0];
     }

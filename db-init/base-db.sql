@@ -12,3 +12,10 @@ CREATE TABLE `logger` (
   `time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `logger`.`sensors` (
+  `id` VARCHAR(16) NOT NULL,
+  `title` VARCHAR(255) NULL,
+  PRIMARY KEY (`id`));
+

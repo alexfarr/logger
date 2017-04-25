@@ -59,7 +59,7 @@
     <div class="stats">
     <?php foreach($stats as $stat): ?>
       <div class="stat">
-          <div class="title"><?php print $stat['sensor']; ?></div>
+          <div class="title"><?php print $stat['title']; ?></div>
           <div class="value"><?php print number_format((float) $stat['value'], 1); ?></div>
           <div class="date"><?php print date('D H:m', $stat['time']); ?></div>
       </div>
