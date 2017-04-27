@@ -14,8 +14,9 @@ CREATE TABLE `logger` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 
-CREATE TABLE `logger`.`sensors` (
-  `id` VARCHAR(16) NOT NULL,
-  `title` VARCHAR(255) NULL,
-  PRIMARY KEY (`id`));
+CREATE TABLE `sensors` (
+  `id` varchar(16) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `units` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

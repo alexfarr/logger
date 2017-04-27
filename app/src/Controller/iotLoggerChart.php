@@ -68,6 +68,7 @@ $sensors_found = [];
       $row = [
         $date_str
       ];
+      ksort($time_series);
 
       // The sensor data might be an array of multiple values, take average
       foreach ($time_series as $id => $sensor_data){
