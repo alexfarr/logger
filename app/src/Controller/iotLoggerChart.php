@@ -51,14 +51,16 @@ $sensors_found = [];
         $date = new \DateTime();
         $date->setTimestamp($row['time']);
         $date_str = $date->format('Y-m-d H:i:s');
-        $data[$this->roundTime($row['time'])][$row['sensor']][] = $row['value'];
+        $data[$this->roundTime($row['time'])][$row['sensor']][] = ($row['data']!='lux')?$row['value']:$row['value']/100;
         //$dt->addRow([$date_str, $row['value']]);
         $sensors_found[$row['sensor']] = $row['title'];
       }
     }
+    
     foreach($sensors_found as $sensor_id => $sensor_title){
       $dt->addNumberColumn($sensor_title);
     }
+
     foreach($data as $time => $time_series){
 
       $date = new \DateTime();
@@ -68,6 +70,7 @@ $sensors_found = [];
       $row = [
         $date_str
       ];
+
       ksort($time_series);
 
       // The sensor data might be an array of multiple values, take average
