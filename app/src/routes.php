@@ -13,6 +13,11 @@ $app->get('/', function ($request, $response, $args) {
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
+$app->get('/info', function($request, \Slim\Http\Response $response, $args){
+    $response->write(phpinfo());
+   return  $response;
+});
+
 $app->post('/', function ($request, $response, $args) {
 	$data = $request->getParsedBody();
 

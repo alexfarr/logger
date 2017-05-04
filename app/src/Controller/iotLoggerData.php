@@ -2,16 +2,18 @@
 
 namespace App\Controller;
 
+use PDO;
+
 class iotLoggerData{
 
   /**
-   * @var \PDO
+   * @var PDO
    */
   private $db;
   private $data;
   private $insert_statement = "INSERT INTO logger(sensor, data, value, time) VALUES(:sensor, :data, :value, :time)";
 
-  function __construct(\PDO $db){
+  function __construct(PDO $db){
     $this->db = $db;
   }
 
@@ -53,14 +55,16 @@ class iotLoggerData{
   }
 
   function getSensors(){
-    return $this->db->query("SELECT DISTINCT sensor FROM logger")->fetchAll();
+    $query = $this->db->query("SELECT l.sensor, s.title FROM logger l JOIN sensors s ON l.sensor = s.id GROUP BY l.sensor");
+    $result = $query->fetchAll(PDO::FETCH_COLUMN|PDO::FETCH_GROUP);
+    return $result;
   }
 
   function getLatest(){
     $sensors = $this->getSensors();
     $results = [];
-    foreach($sensors as $sensor){
-      $sql = "SELECT s.title, l.value, l.time FROM logger l JOIN sensors s ON l.sensor = s.id WHERE sensor = '{$sensor['sensor']}' ORDER BY time DESC LIMIT 1 ";
+    foreach(array_keys($sensors) as $sensor){
+      $sql = "SELECT s.title, l.value, l.time FROM logger l JOIN sensors s ON l.sensor = s.id WHERE sensor = '{$sensor}' ORDER BY time DESC LIMIT 1 ";
       $query = $this->db->query($sql);
       $results[] = $query->fetchAll()[0];
     }
