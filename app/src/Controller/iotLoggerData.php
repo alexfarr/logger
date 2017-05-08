@@ -60,8 +60,12 @@ class iotLoggerData{
     return $result;
   }
 
-  function getLatest(){
-    $sensors = $this->getSensors();
+  function getLatest($sensor = NULL){
+    if($sensor){
+      $sensors = [$sensor => $sensor];
+    } else {
+      $sensors = $this->getSensors();
+    }
     $results = [];
     foreach(array_keys($sensors) as $sensor){
       $sql = "SELECT s.title, l.value, l.time FROM logger l JOIN sensors s ON l.sensor = s.id WHERE sensor = '{$sensor}' ORDER BY time DESC LIMIT 1 ";

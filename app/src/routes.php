@@ -1,6 +1,7 @@
 <?php
 // Routes
 use App\Controller\iotLogger;
+use App\Controller\iotLoggerData;
 
 $app->get('/', function ($request, $response, $args) {
     // Sample log message
@@ -13,9 +14,11 @@ $app->get('/', function ($request, $response, $args) {
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
-$app->get('/info', function($request, \Slim\Http\Response $response, $args){
-    $response->write(phpinfo());
-   return  $response;
+$app->get('/data/{sensor_id}/latest', function($request, \Slim\Http\Response $response, $args){
+  $logger = new iotLoggerData($this->db);
+  $data = $logger->getLatest($args['sensor_id']);
+  $resp = $response->withJson(current($data)); //  ->write(phpinfo());
+   return  $resp;
 });
 
 $app->post('/', function ($request, $response, $args) {
